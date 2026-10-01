@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/tutores")
+@CrossOrigin(origins = "http://localhost:3000")
 public class TutorController {
 
     private final TutorService tutorService;

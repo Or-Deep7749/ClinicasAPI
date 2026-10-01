@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/veterinarios")
+@CrossOrigin(origins = "http://localhost:3000")
 public class VeteriarioController {
 
     private final VeterinarioService veterinarioService;
