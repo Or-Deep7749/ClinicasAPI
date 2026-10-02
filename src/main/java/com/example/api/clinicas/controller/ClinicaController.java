@@ -10,7 +10,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/clinicas")
-@CrossOrigin(origins = "http://localhost:3000")
 public class ClinicaController {
 
     private final ClinicaService clinicaService;
@@ -29,5 +28,17 @@ public class ClinicaController {
     public ResponseEntity<ClinicaModel> criar(@RequestBody ClinicaModel clinicaModel){
         ClinicaModel novaClinica = clinicaService.salvar(clinicaModel);
         return ResponseEntity.status(HttpStatus.CREATED).body(novaClinica);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ClinicaModel> atualizar(@PathVariable Long id, @RequestBody ClinicaModel clinicaModel){
+        ClinicaModel atualizada = clinicaService.atualizar(id, clinicaModel);
+        return ResponseEntity.ok(atualizada);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable Long id){
+        clinicaService.deletar(id);
+        return ResponseEntity.noContent().build();
     }
 }

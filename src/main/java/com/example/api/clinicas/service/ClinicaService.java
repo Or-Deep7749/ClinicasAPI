@@ -5,6 +5,7 @@ import com.example.api.clinicas.repository.ClinicaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClinicaService {
@@ -21,5 +22,19 @@ public class ClinicaService {
 
     public ClinicaModel salvar(ClinicaModel clinicaModel){
         return clinicaRepository.save(clinicaModel);
+    }
+
+    public ClinicaModel atualizar(Long id, ClinicaModel clinicaModel) {
+        Optional<ClinicaModel> clinicaExistente = clinicaRepository.findById(id);
+        if (clinicaExistente.isPresent()) {
+            clinicaModel.setId(id);
+            return clinicaRepository.save(clinicaModel);
+        } else {
+            throw new RuntimeException("Clínica não encontrada com o ID: " + id);
+        }
+    }
+
+    public void deletar(Long id) {
+        clinicaRepository.deleteById(id);
     }
 }

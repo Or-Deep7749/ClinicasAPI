@@ -10,7 +10,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/pets")
-@CrossOrigin(origins = "http://localhost:3000")
 public class PetController {
 
     private final PetService petService;
@@ -29,5 +28,17 @@ public class PetController {
     public ResponseEntity<PetModel> criar(@RequestBody PetModel petModel){
         PetModel novoPet = petService.salvar(petModel);
         return ResponseEntity.status(HttpStatus.CREATED).body(novoPet);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<PetModel> atualizar(@PathVariable Long id, @RequestBody PetModel petModel){
+        PetModel atualizada = petService.atualizar(id, petModel);
+        return ResponseEntity.ok(atualizada);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable Long id){
+        petService.deletar(id);
+        return ResponseEntity.noContent().build();
     }
 }

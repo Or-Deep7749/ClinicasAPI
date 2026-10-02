@@ -10,7 +10,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/tutores")
-@CrossOrigin(origins = "http://localhost:3000")
 public class TutorController {
 
     private final TutorService tutorService;
@@ -29,5 +28,17 @@ public class TutorController {
     public ResponseEntity <TutorModel> criar(@RequestBody TutorModel tutorModel){
         TutorModel novoTutor = tutorService.salvar(tutorModel);
         return ResponseEntity.status(HttpStatus.CREATED).body(novoTutor);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<TutorModel> atualizar(@PathVariable Long id, @RequestBody TutorModel tutorModel){
+        TutorModel atualizada = tutorService.atualizar(id, tutorModel);
+        return ResponseEntity.ok(atualizada);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable Long id){
+        tutorService.deletar(id);
+        return ResponseEntity.noContent().build();
     }
 }
